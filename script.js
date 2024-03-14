@@ -11,13 +11,11 @@ const addressWarn = document.getElementById('address-warn')
 
 let cart = []
 
-// Abrir o modal do carrinho
 cartBtn.addEventListener('click', function () {
     updateCartModal()
     cartModal.style.display = 'flex'
 })
 
-// Fechar o modal quando clicar fora
 cartModal.addEventListener('click', function (event) {
     if (event.target === cartModal) {
         cartModal.style.display = 'none'
@@ -34,14 +32,11 @@ menu.addEventListener('click', function (event) {
         const name = parentButton.getAttribute('data-name')
         const price = parseFloat(parentButton.getAttribute('data-price'))
 
-        //Adicionar no carrinho.
         addToCart(name, price)
-
     }
 
 })
 
-// Função para adicionar no carrinho
 function addToCart(name, price) {
 
     const existingItem = cart.find(item => item.name === name)
@@ -58,7 +53,6 @@ function addToCart(name, price) {
     updateCartModal()
 }
 
-// Atualiza o carrinho
 function updateCartModal() {
     cartItemsContainer.innerHTML = ''
     let total = 0;
@@ -96,7 +90,6 @@ function updateCartModal() {
     cartCounter.innerHTML = cart.length
 }
 
-//Função para remover item do carrinho
 cartItemsContainer.addEventListener("click", function (event) {
     if (event.target.classList.contains('remove-from-cart-btn')) {
         const name = event.target.getAttribute('data-name')
@@ -131,7 +124,6 @@ addressInput.addEventListener('input', function (event) {
 
 })
 
-// Finalizar pedido
 checkoutBtn.addEventListener('click', function () {
 
     const isOpen = checkRestaurantOpen()
@@ -140,9 +132,9 @@ checkoutBtn.addEventListener('click', function () {
             text: "Ops, o restaurante está fechado!",
             duration: 3000,
             close: true,
-            gravity: "top", // `top` or `bottom`
-            position: "right", // `left`, `center` or `right`
-            stopOnFocus: true, // Prevents dismissing of toast on hover
+            gravity: "top",
+            position: "right",
+            stopOnFocus: true,
             style: {
                 background: "#ef4444",
             },
@@ -158,7 +150,6 @@ checkoutBtn.addEventListener('click', function () {
         return
     }
 
-    //Enviar o pedido para a api whats
     const cartItems = cart.map((item) => {
         return (
             ` ${item.name} Quantidade: (${item.quantity}) Preço: R$${item.price} |`
@@ -177,7 +168,6 @@ function checkRestaurantOpen() {
     const data = new Date()
     const hora = data.getHours()
     return hora >= 17.5 && hora < 22
-    // true = restaurante está aberto
 }
 
 const spanItem = document.getElementById('date-span')
